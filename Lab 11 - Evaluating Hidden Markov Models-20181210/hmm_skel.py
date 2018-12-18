@@ -331,45 +331,45 @@ for grid in GRIDS:
 print("Most probably the sequence was generated from " + best_grid + ".")
 
 
-# # See how sequence length influences p
-# RUNS_NO = 1000
+# See how sequence length influences p
+RUNS_NO = 1000
 
-# for T in range(1, 11):
-#     correct = 0
-#     for _ in range(RUNS_NO):
-#         true_grid = np.random.choice(GRIDS)
-#         observations, _ = get_sequence(true_grid, T)
-#         best_grid, best_p = None, None
-#         for grid in GRIDS:
-#             p, _ = forward(grid, observations)
-#             if best_grid is None or best_p < p:
-#                 best_grid, best_p = grid.name, p
-#         correct += (best_grid == true_grid.name)
-#     perc = float(correct * 100) / RUNS_NO
-#     print("%5d / %d (%5.2f%%) for T = %2d" % (correct, RUNS_NO, perc, T))
+for T in range(1, 11):
+    correct = 0
+    for _ in range(RUNS_NO):
+        true_grid = np.random.choice(GRIDS)
+        observations, _ = get_sequence(true_grid, T)
+        best_grid, best_p = None, None
+        for grid in GRIDS:
+            p, _ = forward(grid, observations)
+            if best_grid is None or best_p < p:
+                best_grid, best_p = grid.name, p
+        correct += (best_grid == true_grid.name)
+    perc = float(correct * 100) / RUNS_NO
+    print("%5d / %d (%5.2f%%) for T = %2d" % (correct, RUNS_NO, perc, T))
 
-# # Test alpha_values
-# _test_observations = [2, 2, 3]
-# _test_values = np.array([
-#  [  3.12500000e-03, 3.12500000e-03, 3.12500000e-03, 5.31250000e-02,
-#     3.12500000e-03, 3.12500000e-03, 5.31250000e-02, 3.12500000e-03,
-#     5.31250000e-02, 5.31250000e-02, 3.12500000e-03, 3.12500000e-03,
-#     3.12500000e-03, 3.12500000e-03, 3.12500000e-03, 3.12500000e-03],
-#  [  2.08333333e-05, 1.38020833e-04, 4.78385417e-03, 4.60416667e-03,
-#     1.36718750e-03, 2.86458333e-04, 6.19791667e-04, 5.33854167e-04,
-#     4.30755208e-02, 2.64739583e-02, 4.11458333e-04, 1.58854167e-04,
-#     1.87500000e-04, 1.58854167e-04, 3.38541667e-05, 2.08333333e-05],
-#  [  5.01736111e-06, 3.57044271e-04, 2.39509549e-04, 2.30434028e-04,
-#     1.71725825e-02, 7.27517361e-05, 1.94704861e-05, 3.14539931e-05,
-#     1.19282552e-03, 1.03400174e-03, 6.97309028e-05, 3.74565972e-06,
-#     2.44994792e-03, 6.72352431e-05, 2.82595486e-05, 6.42361111e-07]])
+# Test alpha_values
+_test_observations = [2, 2, 3]
+_test_values = np.array([
+ [  3.12500000e-03, 3.12500000e-03, 3.12500000e-03, 5.31250000e-02,
+    3.12500000e-03, 3.12500000e-03, 5.31250000e-02, 3.12500000e-03,
+    5.31250000e-02, 5.31250000e-02, 3.12500000e-03, 3.12500000e-03,
+    3.12500000e-03, 3.12500000e-03, 3.12500000e-03, 3.12500000e-03],
+ [  2.08333333e-05, 1.38020833e-04, 4.78385417e-03, 4.60416667e-03,
+    1.36718750e-03, 2.86458333e-04, 6.19791667e-04, 5.33854167e-04,
+    4.30755208e-02, 2.64739583e-02, 4.11458333e-04, 1.58854167e-04,
+    1.87500000e-04, 1.58854167e-04, 3.38541667e-05, 2.08333333e-05],
+ [  5.01736111e-06, 3.57044271e-04, 2.39509549e-04, 2.30434028e-04,
+    1.71725825e-02, 7.27517361e-05, 1.94704861e-05, 3.14539931e-05,
+    1.19282552e-03, 1.03400174e-03, 6.97309028e-05, 3.74565972e-06,
+    2.44994792e-03, 6.72352431e-05, 2.82595486e-05, 6.42361111e-07]])
 
-# p, alpha = forward(grid1, [2, 2, 3])
-# assert alpha.shape == (3, grid1.states_no), "Bad shape!"
-# assert np.allclose(alpha, _test_values), "Bad values!"
-# assert np.allclose(p, sum(_test_values[2])), "Bad values!"
+p, alpha = forward(grid1, [2, 2, 3])
+assert alpha.shape == (3, grid1.states_no), "Bad shape!"
+assert np.allclose(alpha, _test_values), "Bad values!"
+assert np.allclose(p, sum(_test_values[2])), "Bad values!"
     
-# print("Alpha matrix looks right! Task 3 accomplished!")
+print("Alpha matrix looks right! Task 3 accomplished!")
 
 
 # ## Decoding
